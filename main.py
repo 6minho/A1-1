@@ -173,6 +173,17 @@ def save_to_json():
         json.dump(prompts, f, ensure_ascii=False, indent=2)
     print(f"\n{filename} 파일로 저장되었습니다!")
 
+def load_from_json():
+    global prompts
+    filename = "prompts.json"
+
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            prompts = json.load(f)
+        print(f"\n{filename} 파일을 불러왔습니다! (총 {len(prompts)}개)")
+    except FileNotFoundError:
+        print(f"\n{filename} 파일을 찾을 수 없습니다.")    
+
 def show_favorites():
     print("\n=== 즐겨찾기 목록 ===")
     favorites = [p for p in prompts if p["favorite"]]
@@ -196,6 +207,7 @@ def show_menu():
     print("6. 즐겨찾기 관리")
     print("7. 즐겨찾기 목록")
     print("8. 데이터 JSON으로 저장")
+    print("9. JSON 데이터 불러오기")
     print("0. 종료")
 
 
@@ -220,6 +232,8 @@ def main():
             show_favorites()
         elif choice == "8":
             save_to_json()
+        elif choice == "9":
+            load_from_json()
         elif choice == "0":
             print("프로그램을 종료합니다.")
             break
