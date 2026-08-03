@@ -217,6 +217,35 @@ def show_favorites():
 
     print(f"\n총 {len(favorites)}개의 즐겨찾기")
 
+def edit_prompt():
+    print("\n=== 프롬프트 수정 ===")
+    show_list()
+
+    num = input("\n수정할 프롬프트 번호 입력: ").strip()
+
+    if not num.isdigit() or not (1 <= int(num) <= len(prompts)):
+        print("잘못된 번호입니다.")
+        return
+
+    p = prompts[int(num) - 1]
+
+    print(f"\n현재 제목: {p['title']}")
+    new_title = input("새 제목 (변경 없으면 Enter): ").strip()
+    if new_title:
+        p["title"] = new_title
+
+    print(f"\n현재 내용: {p['content']}")
+    new_content = input("새 내용 (변경 없으면 Enter): ").strip()
+    if new_content:
+        p["content"] = new_content
+
+    print(f"\n현재 카테고리: {p['category']}")
+    change_cat = input("카테고리를 변경하시겠습니까? (y/n): ").strip().lower()
+    if change_cat == "y":
+        p["category"] = choose_category()
+
+    print(f"\n'{p['title']}' 프롬프트가 수정되었습니다!")
+
 def show_menu():
     print("\n=== 나만의 프롬프트 관리 ===")
     print("1. 프롬프트 추가")
@@ -229,6 +258,7 @@ def show_menu():
     print("8. 데이터 JSON으로 저장")
     print("9. JSON 데이터 불러오기")
     print("10. 카테고리별 Markdown 내보내기")
+    print("11. 프롬프트 수정")
     print("0. 종료")
 
 
@@ -257,6 +287,8 @@ def main():
             load_from_json()
         elif choice == "10":
             export_to_markdown()
+        elif choice == "11":
+            edit_prompt()
         elif choice == "0":
             print("프로그램을 종료합니다.")
             break
