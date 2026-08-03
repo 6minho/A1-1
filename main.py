@@ -184,6 +184,26 @@ def load_from_json():
     except FileNotFoundError:
         print(f"\n{filename} 파일을 찾을 수 없습니다.")    
 
+def export_to_markdown():
+    filename = "prompts_export.md"
+
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write("# 프롬프트 모음\n\n")
+
+        for cat in CATEGORIES:
+            cat_prompts = [p for p in prompts if p["category"] == cat]
+            if not cat_prompts:
+                continue
+
+            f.write(f"## {cat}\n\n")
+
+            for p in cat_prompts:
+                star = " ⭐" if p["favorite"] else ""
+                f.write(f"### {p['title']}{star}\n\n")
+                f.write(f"{p['content']}\n\n")
+
+    print(f"\n{filename} 파일로 내보냈습니다!")
+
 def show_favorites():
     print("\n=== 즐겨찾기 목록 ===")
     favorites = [p for p in prompts if p["favorite"]]
@@ -208,6 +228,7 @@ def show_menu():
     print("7. 즐겨찾기 목록")
     print("8. 데이터 JSON으로 저장")
     print("9. JSON 데이터 불러오기")
+    print("10. 카테고리별 Markdown 내보내기")
     print("0. 종료")
 
 
@@ -234,6 +255,8 @@ def main():
             save_to_json()
         elif choice == "9":
             load_from_json()
+        elif choice == "10":
+            export_to_markdown()
         elif choice == "0":
             print("프로그램을 종료합니다.")
             break
