@@ -272,7 +272,7 @@ def show_menu():
     print("3. 카테고리별 조회")
     print("4. 프롬프트 검색")
     print("5. 프롬프트 상세 보기")
-    print("6. 즐겨찾기 관리")
+    print("6. 즐겨찾기 추가/제거")
     print("7. 즐겨찾기 목록")
     print("8. 데이터 JSON으로 저장")
     print("9. JSON 데이터 불러오기")
