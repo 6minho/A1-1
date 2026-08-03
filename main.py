@@ -2,6 +2,9 @@
 # 나만의 프롬프트 관리 프로그램
 
 # 기본 프롬프트 데이터 (이전 미션에서 작성한 프롬프트 3개)
+
+import json
+
 prompts = [
     {
         "title": "Project A 홈 화면 UI 생성",
@@ -164,6 +167,12 @@ def toggle_favorite():
     else:
         print(f"\n'{p['title']}' 프롬프트를 즐겨찾기에서 해제했습니다.")
 
+def save_to_json():
+    filename = "prompts.json"
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(prompts, f, ensure_ascii=False, indent=2)
+    print(f"\n{filename} 파일로 저장되었습니다!")
+
 def show_favorites():
     print("\n=== 즐겨찾기 목록 ===")
     favorites = [p for p in prompts if p["favorite"]]
@@ -186,6 +195,7 @@ def show_menu():
     print("5. 프롬프트 상세 보기")
     print("6. 즐겨찾기 관리")
     print("7. 즐겨찾기 목록")
+    print("8. 데이터 JSON으로 저장")
     print("0. 종료")
 
 
@@ -208,6 +218,8 @@ def main():
             toggle_favorite()
         elif choice == "7":
             show_favorites()
+        elif choice == "8":
+            save_to_json()
         elif choice == "0":
             print("프로그램을 종료합니다.")
             break
