@@ -246,6 +246,25 @@ def edit_prompt():
 
     print(f"\n'{p['title']}' 프롬프트가 수정되었습니다!")
 
+def delete_prompt():
+    print("\n=== 프롬프트 삭제 ===")
+    show_list()
+
+    num = input("\n삭제할 프롬프트 번호 입력: ").strip()
+
+    if not num.isdigit() or not (1 <= int(num) <= len(prompts)):
+        print("잘못된 번호입니다.")
+        return
+
+    p = prompts[int(num) - 1]
+    confirm = input(f"'{p['title']}' 프롬프트를 삭제하시겠습니까? (y/n): ").strip().lower()
+
+    if confirm == "y":
+        prompts.pop(int(num) - 1)
+        print(f"\n'{p['title']}' 프롬프트가 삭제되었습니다.")
+    else:
+        print("\n삭제가 취소되었습니다.")
+
 def show_menu():
     print("\n=== 나만의 프롬프트 관리 ===")
     print("1. 프롬프트 추가")
@@ -259,6 +278,7 @@ def show_menu():
     print("9. JSON 데이터 불러오기")
     print("10. 카테고리별 Markdown 내보내기")
     print("11. 프롬프트 수정")
+    print("12. 프롬프트 삭제")
     print("0. 종료")
 
 
@@ -289,6 +309,8 @@ def main():
             export_to_markdown()
         elif choice == "11":
             edit_prompt()
+        elif choice == "12":
+            delete_prompt()
         elif choice == "0":
             print("프로그램을 종료합니다.")
             break
