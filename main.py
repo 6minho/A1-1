@@ -42,7 +42,7 @@ def main():
         choice = input("선택: ").strip()
 
         if choice == "1":
-            print("(다음 단계에서 구현 예정)")
+            add_prompt()
         elif choice == "2":
             print("(다음 단계에서 구현 예정)")
         elif choice == "3":
