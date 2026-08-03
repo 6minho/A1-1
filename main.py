@@ -270,6 +270,19 @@ def delete_prompt():
     else:
         print("\n삭제가 취소되었습니다.")
 
+def show_top_viewed():
+    print("\n=== 조회수 Top 목록 ===")
+
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    sorted_prompts = sorted(prompts, key=lambda p: p["views"], reverse=True)
+
+    for i, p in enumerate(sorted_prompts, 1):
+        star = " ⭐" if p["favorite"] else ""
+        print(f"{i}. [{p['category']}] {p['title']}{star} (조회수: {p['views']})")
+
 def show_menu():
     print("\n=== 나만의 프롬프트 관리 ===")
     print("1. 프롬프트 추가")
@@ -284,6 +297,7 @@ def show_menu():
     print("10. 카테고리별 Markdown 내보내기")
     print("11. 프롬프트 수정")
     print("12. 프롬프트 삭제")
+    print("13. 조회수 Top 목록")
     print("0. 종료")
 
 
@@ -316,6 +330,8 @@ def main():
             edit_prompt()
         elif choice == "12":
             delete_prompt()
+        elif choice == "13":
+            show_top_viewed()
         elif choice == "0":
             print("프로그램을 종료합니다.")
             break
